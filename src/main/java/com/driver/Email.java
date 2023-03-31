@@ -10,6 +10,10 @@ public class Email {
         this.password = "Accio@123";
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getEmailId() {
         return emailId;
     }
@@ -25,5 +29,14 @@ public class Email {
         // 3. It contains at least one lowercase letter
         // 4. It contains at least one digit
         // 5. It contains at least one special character. Any character apart from alphabets and digits is a special character
+        String currentPassword = getPassword(); // assume this method retrieves the user's current password
+        if (!oldPassword.equals(currentPassword)) {
+            throw new IllegalArgumentException("Old password is incorrect.");
+        }
+        if (newPassword.length() < 8 || !newPassword.matches(".*[A-Z].*") || !newPassword.matches(".*[a-z].*")
+                || !newPassword.matches(".*\\d.*") || !newPassword.matches(".*[^A-Za-z0-9].*")) {
+            throw new IllegalArgumentException("New password does not meet requirements.");
+        }
+        setPassword(newPassword); // assume this method sets the user's new password
     }
 }
